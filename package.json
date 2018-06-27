@@ -1,0 +1,25 @@
+{
+  "name": "bizgoblin",
+  "version": "0.0.1",
+  "description": "data vis chart for mobile.",
+  "bugs": {
+    "url": "https://github.com/alibaba/BizGoblin/issues"
+  },
+  "homepage": "https://github.com/alibaba/BizGoblin",
+  "scripts": {
+    "postinstall": "lerna bootstrap",
+    "pub": "lerna publish"
+  },
+  "devDependencies": {
+    "lerna": "^2.4.0"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alibaba/BizGoblin.git"
+  },
+  "author": "bizgoblin group",
+  "license": "MIT"
+}
