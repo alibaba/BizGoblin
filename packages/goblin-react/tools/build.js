@@ -12,7 +12,6 @@ function exec(shell, extraEnv) {
       stdio: 'inherit',
       env: Object.assign({}, process.env, extraEnv),
     }, (error, stdOut) => {
-      console.log(stdOut)
       if (error) {
         reject(error.toString());
       } else {

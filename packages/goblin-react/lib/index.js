@@ -14,7 +14,7 @@ Object.defineProperty(exports, 'Chart', {
   }
 });
 
-var _goblinBase = require('@alife/goblin-base');
+var _goblinBase = require('goblin-base');
 
 var goblin = _interopRequireWildcard(_goblinBase);
 

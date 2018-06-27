@@ -14314,6 +14314,7 @@ module.exports = ReactPropTypesSecret;
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "registerShape", function() { return registerShape; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Global", function() { return Global; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "track", function() { return track; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_CommonChart__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_CustomizeUtils__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Commom__ = __webpack_require__(0);
@@ -14323,6 +14324,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 var F2 = __webpack_require__(1);
 var registerShape = __WEBPACK_IMPORTED_MODULE_1__utils_CustomizeUtils__["a" /* registerShape */];
 var Global = F2.Global;
+var track = F2.track;
 /* harmony default export */ __webpack_exports__["default"] = (function (config) {
     if (__WEBPACK_IMPORTED_MODULE_2__utils_Commom__["a" /* Util */].isNil(config) || __WEBPACK_IMPORTED_MODULE_2__utils_Commom__["a" /* Util */].isEmpty(config)) {
         return;

@@ -12,7 +12,7 @@ var _propTypes = require('prop-types');
 
 var PropTypes = _interopRequireWildcard(_propTypes);
 
-var _goblinBase = require('@alife/goblin-base');
+var _goblinBase = require('goblin-base');
 
 var _goblinBase2 = _interopRequireDefault(_goblinBase);
 
