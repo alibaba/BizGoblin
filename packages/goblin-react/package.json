@@ -1,6 +1,6 @@
 {
   "name": "bizgoblin",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "bizgoblin is react of goblin.",
   "license": "MIT",
   "authors": "bizgoblin group",
@@ -24,9 +24,9 @@
     "react-dom": ">15"
   },
   "dependencies": {
-    "goblin-base": "^0.0.1",
     "@types/node": "*",
     "@types/prop-types": "*",
+    "goblin-base": "^0.0.2",
     "prop-types": "^15.6.0"
   },
   "devDependencies": {
