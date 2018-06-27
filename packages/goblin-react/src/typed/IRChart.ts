@@ -1,4 +1,4 @@
-import { IChart, ICoord, IDefs, IAnimate } from '@alife/goblin-base';
+import { IChart, ICoord, IDefs, IAnimate } from 'goblin-base';
 
 interface ISChartProps {
   data?: any;
