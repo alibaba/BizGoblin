@@ -8,7 +8,7 @@ The NPM way is only install by shell:
 
 ```shell
 # latest stable
-$ npm install @alife/goblin
+$ npm install goblin-base
 ```
 
 ### React Version
@@ -21,7 +21,7 @@ The NPM way is only install by shell:
 
 ```shell
 # latest stable
-$ npm install @alife/goblin-react
+$ npm install bizgoblin
 ```
 
 ## Demo
