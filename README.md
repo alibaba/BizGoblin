@@ -1,3 +1,6 @@
+## Document
+
+[API](http://bizcharts.net/products/bizGoblin/api/chart)
 
 
 ## Installation
