@@ -19,6 +19,10 @@
     "lint": "tslint src",
     "analyse": "NODE_ENV=analyse webpack --progress --config webpack.config.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alibaba/BizGoblin.git"
+  },
   "peerDependencies": {
     "react": ">15",
     "react-dom": ">15"
