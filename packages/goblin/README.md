@@ -5,13 +5,13 @@
 ## Install
 
 ```sh
-$ tnpm install --save @alife/goblin
+$ npm install --save goblin-base
 ```
 
 ## Usage
 
 ```jsx
-import goblin from '@alife/goblin';
+import goblin from 'goblin-base';
 
 const data = [
   { time: '周一', tem: 6.9, rain: 10 },
