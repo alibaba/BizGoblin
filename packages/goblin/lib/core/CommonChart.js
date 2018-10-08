@@ -66,6 +66,7 @@ var CommonChart = function () {
     };
     CommonChart.prototype.repaint = function (config) {
         var newConfig = _Commom.Util.deepClone(config);
+        console.log('repainttttt', newConfig);
         this.checkChartConfig(newConfig);
         this.renderDiffConfig(newConfig);
         this.oriConfig = newConfig;
@@ -107,6 +108,8 @@ var CommonChart = function () {
     };
     CommonChart.prototype.repaintContent = function (chart, oriConfig, config) {
         var hasChartChange = false;
+        console.log('abc', oriConfig, config, _Commom.Util.isEqual(oriConfig.series, config.series));
+        console.log(oriConfig.series === config.series);
         if ((!_Commom.Util.isNil(oriConfig.coord) || !_Commom.Util.isNil(config.coord)) && !_Commom.Util.isEqual(oriConfig.coord, config.coord)) {
             this.setCoord(chart, config);
             hasChartChange = true;
@@ -125,6 +128,10 @@ var CommonChart = function () {
         }
         if ((!_Commom.Util.isNil(oriConfig.animate) || !_Commom.Util.isNil(config.animate)) && !_Commom.Util.isEqual(oriConfig.animate, config.animate)) {
             this.setAnimate(chart, config);
+            hasChartChange = true;
+        }
+        if ((!_Commom.Util.isNil(oriConfig.data) || !_Commom.Util.isNil(config.data)) && !_Commom.Util.isEqual(oriConfig.data, config.data)) {
+            this.setData(chart, config);
             hasChartChange = true;
         }
         return hasChartChange;

@@ -764,7 +764,7 @@ var Util = __webpack_require__(0);
  * @class 全局配置项
  */
 var Global = {
-  version: '3.1.12',
+  version: '3.1.15',
   trackable: true,
   // 预先定义的度量
   scales: {
@@ -1204,7 +1204,11 @@ var Geom = function (_Base) {
        * 否则从最小值开始
        * @type {Boolean}
       */
-      startOnZero: true
+      startOnZero: true,
+      /**
+       * 是否连接空数据，对 area、line、path 生效
+       */
+      connectNulls: false
     };
   };
 
@@ -1685,11 +1689,18 @@ var Geom = function (_Base) {
 
   Geom.prototype.getYMinValue = function getYMinValue() {
     var yScale = this.getYScale();
-    var min = yScale.min;
+    var min = yScale.min,
+        max = yScale.max;
+
     var value = void 0;
 
     if (this.get('startOnZero')) {
-      value = min >= 0 ? min : 0;
+      if (max <= 0 && min <= 0) {
+        // 当值全部为负时，需要在现有范围内绘制
+        value = max;
+      } else {
+        value = min >= 0 ? min : 0;
+      }
     } else {
       value = min;
     }
@@ -2897,20 +2908,26 @@ var ShapeUtil = {
     });
     return points;
   },
-  splitArray: function splitArray(data, yField) {
+  splitArray: function splitArray(data, yField, connectNulls) {
     if (!data.length) return [];
     var arr = [];
     var tmp = [];
     var yValue = void 0;
     Util.each(data, function (obj) {
       yValue = obj._origin ? obj._origin[yField] : obj[yField];
-      if (Util.isArray(yValue) && Util.isNil(yValue[0]) || Util.isNil(yValue)) {
-        if (tmp.length) {
-          arr.push(tmp);
-          tmp = [];
+      if (connectNulls) {
+        if (!Util.isNil(yValue)) {
+          tmp.push(obj);
         }
       } else {
-        tmp.push(obj);
+        if (Util.isArray(yValue) && Util.isNil(yValue[0]) || Util.isNil(yValue)) {
+          if (tmp.length) {
+            arr.push(tmp);
+            tmp = [];
+          }
+        } else {
+          tmp.push(obj);
+        }
       }
     });
 
@@ -4627,11 +4644,22 @@ var Chart = function (_Base) {
       var geom = geoms[i];
       if (geom.get('type') === 'interval') {
         var yScale = geom.getYScale();
-        var field = yScale.field;
-        if (!(colDefs[field] && colDefs[field].min) && yScale.min > 0 && yScale.type !== 'time') {
-          yScale.change({
-            min: 0
-          });
+        var field = yScale.field,
+            min = yScale.min,
+            max = yScale.max,
+            type = yScale.type;
+
+        if (!(colDefs[field] && colDefs[field].min) && type !== 'time') {
+          if (min > 0) {
+            yScale.change({
+              min: 0
+            });
+          } else if (max <= 0) {
+            // 当柱状图全为负值时也需要从 0 开始生长
+            yScale.change({
+              max: 0
+            });
+          }
         }
       }
     }
@@ -4703,8 +4731,12 @@ var Chart = function (_Base) {
   };
 
   Chart.prototype._initLayout = function _initLayout() {
-    var padding = this.get('margin') || this.get('padding'); // 兼容margin 的写法
-    padding = Util.parsePadding(padding);
+    var padding = this.get('_padding');
+    if (!padding) {
+      padding = this.get('margin') || this.get('padding'); // 兼容margin 的写法
+      padding = Util.parsePadding(padding);
+    }
+
     var top = padding[0] === 'auto' ? 0 : padding[0];
     var right = padding[1] === 'auto' ? 0 : padding[1];
     var bottom = padding[2] === 'auto' ? 0 : padding[2];
@@ -4943,8 +4975,14 @@ var Chart = function (_Base) {
     return this;
   };
 
-  Chart.prototype.repaint = function repaint(isDataChanged) {
-    this.set('dataChanged', isDataChanged);
+  /**
+   * 重绘 chart
+   * @param {Boolean} rePadding 是否需要重新计算 padding
+   */
+
+
+  Chart.prototype.repaint = function repaint(rePadding) {
+    this.set('rePadding', rePadding);
     this.set('isUpdate', true);
     Chart.plugins.notify(this, 'repaint');
     this._clearInner();
@@ -5225,7 +5263,8 @@ var Path = function (_Geom) {
     var self = this;
     var container = self.get('container');
     var yScale = self.getYScale();
-    var splitArray = ShapeUtil.splitArray(data, yScale.field);
+    var connectNulls = self.get('connectNulls');
+    var splitArray = ShapeUtil.splitArray(data, yScale.field, connectNulls);
 
     var cfg = this.getDrawCfg(data[0]);
     cfg.origin = data; // path,line 等图的origin 是整个序列
@@ -7098,7 +7137,7 @@ var AxisController = function () {
 
     var axes = this.axes;
     var chart = self.chart;
-    if (chart._isAutoPadding() || chart.get('dataChanged')) {
+    if (chart._isAutoPadding() || chart.get('rePadding')) {
       // 数据变更时需要重新计算
       var userPadding = Util.parsePadding(chart.get('padding'));
       var appendPadding = chart.get('appendPadding');
@@ -7150,7 +7189,7 @@ var AxisController = function () {
           padding[2] += _maxHeight + _labelOffset3;
         }
       }
-      chart.set('_padding', padding); // 不改变原始的 padding 属性值，将计算后的 padding 存储在 _padding 属性中
+      chart.set('_padding', padding); // 将计算后的 padding 存储在 _padding 属性中
       chart._updateLayout(padding);
     }
 
@@ -8756,12 +8795,14 @@ var Stack = function (_Adjust) {
         var y = item[yField];
         var xkey = x.toString();
         y = Util.isArray(y) ? y[1] : y;
-        var direction = y >= 0 ? 'positive' : 'negative';
-        if (!stackCache[direction][xkey]) {
-          stackCache[direction][xkey] = 0;
+        if (!Util.isNil(y)) {
+          var direction = y >= 0 ? 'positive' : 'negative';
+          if (!stackCache[direction][xkey]) {
+            stackCache[direction][xkey] = 0;
+          }
+          item[yField] = [stackCache[direction][xkey], y + stackCache[direction][xkey]];
+          stackCache[direction][xkey] += y;
         }
-        item[yField] = [stackCache[direction][xkey], y + stackCache[direction][xkey]];
-        stackCache[direction][xkey] += y;
       }
     }
   };
@@ -9660,7 +9701,8 @@ var Area = function (_Geom) {
     var container = self.get('container');
     var cfg = this.getDrawCfg(data[0]);
     var yScale = self.getYScale();
-    var splitArray = ShapeUtil.splitArray(data, yScale.field);
+    var connectNulls = self.get('connectNulls');
+    var splitArray = ShapeUtil.splitArray(data, yScale.field, connectNulls);
     cfg.origin = data; // path,line,area 等图的origin 是整个序列
     Util.each(splitArray, function (subData, splitedIndex) {
       cfg.splitedIndex = splitedIndex; // 传入分割片段索引 用于生成id
@@ -9705,62 +9747,40 @@ function equalsCenter(points, center) {
   return eqls;
 }
 
-function drawCircleArea(topPoints, bottomPoints, container, style, isSmooth) {
-  var shape = container.addShape('Polyline', {
-    className: 'area',
-    attrs: Util.mix({
-      points: topPoints,
-      smooth: isSmooth
-    }, style)
-  });
-  if (bottomPoints.length) {
-    var bottomShape = container.addShape('Polyline', {
-      className: 'area',
-      attrs: Util.mix({
-        points: bottomPoints,
-        smooth: isSmooth
-      }, style)
-    });
-    return [shape, bottomShape];
-  }
-  return shape;
-}
-
 function drawRectShape(topPoints, bottomPoints, container, style, isSmooth) {
   var shape = void 0;
+  var points = topPoints.concat(bottomPoints);
   if (isSmooth) {
     shape = container.addShape('Custom', {
       className: 'area',
-      attrs: Util.mix({
-        points: topPoints.concat(bottomPoints)
-      }, style),
+      attrs: style,
       createPath: function createPath(context) {
         var constaint = [// 范围
         [0, 0], [1, 1]];
-        var points = this._attrs.attrs.points;
-        var topSps = Smooth.smooth(points.slice(0, points.length / 2), false, constaint);
-        var bottomSps = Smooth.smooth(points.slice(points.length / 2, points.length), false, constaint);
-
+        var topSps = Smooth.smooth(topPoints, false, constaint);
         context.beginPath();
         context.moveTo(topPoints[0].x, topPoints[0].y);
         for (var i = 0, n = topSps.length; i < n; i++) {
           var sp = topSps[i];
           context.bezierCurveTo(sp[1], sp[2], sp[3], sp[4], sp[5], sp[6]);
         }
-        context.lineTo(bottomPoints[0].x, bottomPoints[0].y);
-        for (var _i = 0, _n = bottomSps.length; _i < _n; _i++) {
-          var _sp = bottomSps[_i];
-          context.bezierCurveTo(_sp[1], _sp[2], _sp[3], _sp[4], _sp[5], _sp[6]);
+
+        if (bottomPoints.length) {
+          var bottomSps = Smooth.smooth(bottomPoints, false, constaint);
+          context.lineTo(bottomPoints[0].x, bottomPoints[0].y);
+          for (var _i = 0, _n = bottomSps.length; _i < _n; _i++) {
+            var _sp = bottomSps[_i];
+            context.bezierCurveTo(_sp[1], _sp[2], _sp[3], _sp[4], _sp[5], _sp[6]);
+          }
         }
         context.closePath();
       }
     });
   } else {
-    topPoints = topPoints.concat(bottomPoints);
     shape = container.addShape('Polyline', {
       className: 'area',
       attrs: Util.mix({
-        points: topPoints
+        points: points
       }, style)
     });
   }
@@ -9779,15 +9799,17 @@ function drawShape(cfg, container, isSmooth) {
   var style = Util.mix({
     fillStyle: cfg.color
   }, Global.shape.area, cfg.style);
+
   bottomPoints.reverse(); // 下面
   topPoints = self.parsePoints(topPoints);
   bottomPoints = self.parsePoints(bottomPoints);
   if (cfg.isInCircle) {
+    topPoints.push(topPoints[0]); // 闭合路径
+    bottomPoints.unshift(bottomPoints[bottomPoints.length - 1]); // 闭合路径
     if (equalsCenter(bottomPoints, cfg.center)) {
       // 如果内部点等于圆心，不绘制
       bottomPoints = [];
     }
-    return drawCircleArea(topPoints, bottomPoints, container, style, isSmooth);
   }
 
   return drawRectShape(topPoints, bottomPoints, container, style, isSmooth);
@@ -11174,6 +11196,7 @@ var Tooltip = __webpack_require__(83);
 Global.tooltip = Util.deepMix({
   triggerOn: ['touchstart', 'touchmove'],
   // triggerOff: 'touchend',
+  alwaysShow: false, // 当移出触发区域，是否仍显示提示框内容，默认为 false，移出触发区域 tooltip 消失，设置为 true 可以保证一直显示提示框内容
   showTitle: false,
   showCrosshairs: false,
   crosshairsStyle: {
@@ -11576,7 +11599,7 @@ var TooltipController = function () {
         x = _Util$createEvent.x,
         y = _Util$createEvent.y;
 
-    if (!(x >= plot.tl.x && x <= plot.tr.x && y >= plot.tl.y && y <= plot.br.y)) {
+    if (!(x >= plot.tl.x && x <= plot.tr.x && y >= plot.tl.y && y <= plot.br.y) && !this.cfg.alwaysShow) {
       // not in chart plot
       this.hideTooltip();
       return;
@@ -11614,29 +11637,40 @@ var TooltipController = function () {
   };
 
   TooltipController.prototype.bindEvents = function bindEvents() {
-    var triggerOn = this.cfg.triggerOn;
-    var triggerOff = this.cfg.triggerOff;
+    var cfg = this.cfg;
+    var triggerOn = cfg.triggerOn,
+        triggerOff = cfg.triggerOff,
+        alwaysShow = cfg.alwaysShow;
+
     var showMethod = Util.wrapBehavior(this, 'handleShowEvent');
     var hideMethod = Util.wrapBehavior(this, 'handleHideEvent');
 
     triggerOn && this._handleEvent(triggerOn, showMethod, 'bind');
     triggerOff && this._handleEvent(triggerOff, hideMethod, 'bind');
-    // TODO: 当用户点击canvas 外的事件时 tooltip 消失
-    var docMethod = Util.wrapBehavior(this, 'handleDocEvent');
-    Util.isBrowser && Util.addEventListener(document, 'touchstart', docMethod);
+    // TODO: 当用户点击 canvas 外的事件时 tooltip 消失
+    if (!alwaysShow) {
+      var docMethod = Util.wrapBehavior(this, 'handleDocEvent');
+      Util.isBrowser && Util.addEventListener(document, 'touchstart', docMethod);
+    }
   };
 
   TooltipController.prototype.unBindEvents = function unBindEvents() {
-    var triggerOn = this.cfg.triggerOn;
-    var triggerOff = this.cfg.triggerOff;
+    var cfg = this.cfg;
+    var triggerOn = cfg.triggerOn,
+        triggerOff = cfg.triggerOff,
+        alwaysShow = cfg.alwaysShow;
+
     var showMethod = Util.getWrapBehavior(this, 'handleShowEvent');
     var hideMethod = Util.getWrapBehavior(this, 'handleHideEvent');
 
     triggerOn && this._handleEvent(triggerOn, showMethod, 'unBind');
     triggerOff && this._handleEvent(triggerOff, hideMethod, 'unBind');
-    // TODO: 当用户点击canvas 外的事件时 tooltip 消失
-    var docMethod = Util.getWrapBehavior(this, 'handleDocEvent');
-    Util.isBrowser && Util.removeEventListener(document, 'touchstart', docMethod);
+
+    // TODO: 当用户点击 canvas 外的事件时 tooltip 消失
+    if (!alwaysShow) {
+      var docMethod = Util.getWrapBehavior(this, 'handleDocEvent');
+      Util.isBrowser && Util.removeEventListener(document, 'touchstart', docMethod);
+    }
   };
 
   return TooltipController;
@@ -14384,6 +14418,7 @@ var CommonChart = function () {
     };
     CommonChart.prototype.repaint = function (config) {
         var newConfig = _Commom.Util.deepClone(config);
+        console.log('repainttttt', newConfig);
         this.checkChartConfig(newConfig);
         this.renderDiffConfig(newConfig);
         this.oriConfig = newConfig;
@@ -14425,6 +14460,8 @@ var CommonChart = function () {
     };
     CommonChart.prototype.repaintContent = function (chart, oriConfig, config) {
         var hasChartChange = false;
+        console.log('abc', oriConfig, config, _Commom.Util.isEqual(oriConfig.series, config.series));
+        console.log(oriConfig.series === config.series);
         if ((!_Commom.Util.isNil(oriConfig.coord) || !_Commom.Util.isNil(config.coord)) && !_Commom.Util.isEqual(oriConfig.coord, config.coord)) {
             this.setCoord(chart, config);
             hasChartChange = true;
@@ -14443,6 +14480,10 @@ var CommonChart = function () {
         }
         if ((!_Commom.Util.isNil(oriConfig.animate) || !_Commom.Util.isNil(config.animate)) && !_Commom.Util.isEqual(oriConfig.animate, config.animate)) {
             this.setAnimate(chart, config);
+            hasChartChange = true;
+        }
+        if ((!_Commom.Util.isNil(oriConfig.data) || !_Commom.Util.isNil(config.data)) && !_Commom.Util.isEqual(oriConfig.data, config.data)) {
+            this.setData(chart, config);
             hasChartChange = true;
         }
         return hasChartChange;
