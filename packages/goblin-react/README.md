@@ -2,13 +2,13 @@
 ## Install
 
 ```sh
-$ npm install --save @alife/goblin-react
+$ npm install --save bizgoblin
 ```
 
 ## Usage
 
 ```jsx
-import { Chart, SmoothLine, Point, Tooltip, Legend, Axis } from '@alife/goblin-react';
+import { Chart, SmoothLine, Point, Tooltip, Legend, Axis } from 'bizgoblin';
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 

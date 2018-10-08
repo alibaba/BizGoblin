@@ -1,6 +1,6 @@
 {
   "name": "bizgoblin",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "bizgoblin is react of f2.",
   "license": "MIT",
   "authors": "bizgoblin group",
@@ -30,7 +30,7 @@
   "dependencies": {
     "@types/node": "*",
     "@types/prop-types": "*",
-    "goblin-base": "^0.0.2",
+    "goblin-base": "^0.0.x",
     "prop-types": "^15.6.0"
   },
   "devDependencies": {
