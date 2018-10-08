@@ -46,6 +46,7 @@ class CommonChart {
 
   public repaint (config: IMainConfig) {
     const newConfig = Util.deepClone(config);
+    console.log('repainttttt', newConfig)
     this.checkChartConfig(newConfig);
     this.renderDiffConfig(newConfig);
     this.oriConfig = newConfig;
@@ -100,6 +101,8 @@ class CommonChart {
 
   private repaintContent (chart: any, oriConfig: IMainConfig, config: IMainConfig) {
     let hasChartChange = false;
+    console.log('abc', oriConfig, config, Util.isEqual(oriConfig.series, config.series))
+    console.log(oriConfig.series === config.series)
 
     if ((!Util.isNil(oriConfig.coord) || !Util.isNil(config.coord)) &&
       !Util.isEqual(oriConfig.coord, config.coord)) {
@@ -131,11 +134,11 @@ class CommonChart {
       hasChartChange = true;
     }
 
-    // if ((!Util.isNil(oriConfig.data) || !Util.isNil(config.data)) &&
-    //   !Util.isEqual(oriConfig.data, config.data)) {
-    //   this.setData(chart, config);
-    //   hasChartChange = true;
-    // }
+    if ((!Util.isNil(oriConfig.data) || !Util.isNil(config.data)) &&
+      !Util.isEqual(oriConfig.data, config.data)) {
+      this.setData(chart, config);
+      hasChartChange = true;
+    }
     return hasChartChange;
   }
 
