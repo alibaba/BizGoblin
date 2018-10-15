@@ -46,7 +46,6 @@ class CommonChart {
 
   public repaint (config: IMainConfig) {
     const newConfig = Util.deepClone(config);
-    console.log('repainttttt', newConfig)
     this.checkChartConfig(newConfig);
     this.renderDiffConfig(newConfig);
     this.oriConfig = newConfig;
@@ -101,8 +100,6 @@ class CommonChart {
 
   private repaintContent (chart: any, oriConfig: IMainConfig, config: IMainConfig) {
     let hasChartChange = false;
-    console.log('abc', oriConfig, config, Util.isEqual(oriConfig.series, config.series))
-    console.log(oriConfig.series === config.series)
 
     if ((!Util.isNil(oriConfig.coord) || !Util.isNil(config.coord)) &&
       !Util.isEqual(oriConfig.coord, config.coord)) {
