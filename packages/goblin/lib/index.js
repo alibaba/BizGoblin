@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.track = exports.Global = exports.registerShape = undefined;
+exports.Shape = exports.track = exports.Global = exports.registerShape = undefined;
 
 exports.default = function (config) {
     if (_Commom.Util.isNil(config) || _Commom.Util.isEmpty(config)) {
@@ -31,6 +31,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var F2 = require('@antv/f2');
 var registerShape = exports.registerShape = CustomizeUtils.registerShape;
 var Global = exports.Global = F2.Global;
+var track = exports.track = F2.track;
 
 //# sourceMappingURL=index.js.map
-var track = exports.track = F2.track;
+var Shape = exports.Shape = F2.Shape;
