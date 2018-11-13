@@ -39,6 +39,7 @@ export {
 export const registerShape = CustomizeUtils.registerShape;
 export const Global = F2.Global;
 export const track = F2.track;
+export const Shape = F2.Shape;
 
 export default function (config: any) {
   if (Util.isNil(config) || Util.isEmpty(config)) {
