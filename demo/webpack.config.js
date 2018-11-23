@@ -14,8 +14,8 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json', '.vue'],
     alias: {
-      goblin: path.resolve(__dirname, '../packages/goblin/src/index'),
-      'goblin-react': path.resolve(__dirname, '../packages/goblin-react/src/index'),
+      goblin: path.resolve(__dirname, '../packages/goblin/lib/index'),
+      'goblin-react': path.resolve(__dirname, '../packages/goblin-react/lib/index'),
     },
     modules: [path.resolve(__dirname, '../packages/goblin-ng/node_modules'), 'node_modules']
   },

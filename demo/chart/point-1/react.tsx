@@ -25,18 +25,28 @@ class App extends React.Component {
   state = {
     height:240,
     width:320,
-    pixelRatio: window.devicePixelRatio*2
+    pixelRatio: window.devicePixelRatio*2,
+    dataSource: data
   }
 
   constructor(props) {
     super(props);
   }
 
+  componentDidMount () {
+    setTimeout(() => {
+      this.setState({
+        dataSource: data.slice(22)
+      })
+    }, 3000);
+  }
+
   render() {
-    const { height, width, pixelRatio } = this.state;
+    const { height, width, pixelRatio, dataSource } = this.state;
+    console.log('render', dataSource)
     return (
       <div>
-        <Chart height={height} width={width} data={data} defs={defs} pixelRatio={pixelRatio} >
+        <Chart height={height} width={width} data={dataSource} defs={defs} pixelRatio={pixelRatio} >
           <Axis dataKey='height' label={formatLabel} />
           <Legend />
           <Geom geom='point' position='height*weight' color='gender' style={{ fillOpacity: 0.65 }} />
