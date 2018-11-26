@@ -42,6 +42,7 @@ class CommonChart {
     this.setTooltip(chart, config);
     this.oriConfig = config;
     chart.render();
+    this.renderDefaultTooltip(chart, config);
   }
 
   public repaint (config: IMainConfig) {
@@ -210,6 +211,14 @@ class CommonChart {
           config[key] = transform2px(config[key], relativeValue, rootFontSize);
         }
       }
+    }
+  }
+
+  private renderDefaultTooltip(chart: any, config: any) {
+    const cTooltip = Util.deepClone(config.tooltip);
+    if (cTooltip.show && cTooltip.defaultItem) {
+      const point = chart.getPosition(item);
+      chart.showTooltip(point);
     }
   }
 }
