@@ -63,6 +63,7 @@ var CommonChart = function () {
         this.setTooltip(chart, config);
         this.oriConfig = config;
         chart.render();
+        this.renderDefaultTooltip(chart, config);
     };
     CommonChart.prototype.repaint = function (config) {
         var newConfig = _Commom.Util.deepClone(config);
@@ -196,6 +197,13 @@ var CommonChart = function () {
                     config[key] = (0, _Commom.transform2px)(config[key], relativeValue, rootFontSize);
                 }
             }
+        }
+    };
+    CommonChart.prototype.renderDefaultTooltip = function (chart, config) {
+        var cTooltip = _Commom.Util.deepClone(config.tooltip);
+        if (cTooltip.show && cTooltip.defaultItem) {
+            var point = chart.getPosition(cTooltip.defaultItem);
+            chart.showTooltip(point);
         }
     };
     return CommonChart;
