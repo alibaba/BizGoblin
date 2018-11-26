@@ -16061,7 +16061,7 @@ var Shape = F2.Shape;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Global = exports.Tooltip = exports.Legend = exports.Geom = exports.Axis = exports.Guide = exports.Coord = exports.Chart = undefined;
+exports.Shape = exports.Global = exports.Tooltip = exports.Legend = exports.Geom = exports.Axis = exports.Guide = exports.Coord = exports.Chart = undefined;
 
 var _Chart = __webpack_require__(7);
 
@@ -16101,6 +16101,7 @@ exports.Geom = _SubComponent.Geom;
 exports.Legend = _SubComponent.Legend;
 exports.Tooltip = _SubComponent.Tooltip;
 var Global = exports.Global = goblin.Global;
+var Shape = exports.Shape = goblin.Shape;
 var BizGoblin = { track: goblin.track };
 exports.default = BizGoblin;
 //# sourceMappingURL=index.js.map
