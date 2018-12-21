@@ -624,7 +624,7 @@ var Theme = __webpack_require__(42);
 var Util = __webpack_require__(0);
 
 var Global = {
-  version: '3.3.0',
+  version: '3.3.3',
   trackable: true,
   scales: {},
   widthRatio: {
@@ -3162,8 +3162,12 @@ function (_Base) {
     min = Math.min.apply(null, min);
     max = Math.max.apply(null, max);
     Util.each(syncScales, function (scale) {
-      scale.min = min;
-      scale.max = max;
+      scale.change({
+        min: min
+      });
+      scale.change({
+        max: max
+      });
     });
   };
 
@@ -4245,7 +4249,8 @@ function () {
     Util.each(gridPoints, function (subPoints, index) {
       if (Util.isFunction(grid)) {
         var tick = ticks[index] || {};
-        gridCfg = Util.mix({}, Global._defaultAxis.grid, grid(tick.text, index, count));
+        var executedGrid = grid(tick.text, index, count);
+        gridCfg = executedGrid ? Util.mix({}, Global._defaultAxis.grid, executedGrid) : null;
       }
 
       if (gridCfg) {
@@ -6794,6 +6799,7 @@ function () {
 
     if (!data || !data.length) {
       if (def && def.type) {
+        def.field = field;
         scale = new Scale[SCALE_TYPES_MAP[def.type]](def);
       } else {
         scale = new Scale.Identity({
@@ -7721,12 +7727,7 @@ function () {
     Util.each(ticks, function (tick, index) {
       if (Util.isFunction(label)) {
         var executedLabel = label(tick.text, index, count);
-
-        if (executedLabel) {
-          labelCfg = Util.mix({}, Global._defaultAxis.label, executedLabel);
-        } else {
-          labelCfg = null;
-        }
+        labelCfg = executedLabel ? Util.mix({}, Global._defaultAxis.label, executedLabel) : null;
       }
 
       if (labelCfg) {
@@ -7903,11 +7904,14 @@ function () {
           Util.each(verticalTicks, function (verticalTick) {
             var x = dimType === 'x' ? tick.value : verticalTick.value;
             var y = dimType === 'x' ? verticalTick.value : tick.value;
-            var point = coord.convertPoint({
-              x: x,
-              y: y
-            });
-            subPoints.push(point);
+
+            if (x >= 0 && x <= 1 && y >= 0 && y <= 1) {
+              var point = coord.convertPoint({
+                x: x,
+                y: y
+              });
+              subPoints.push(point);
+            }
           });
           gridPoints.push({
             points: subPoints,
@@ -8794,6 +8798,7 @@ function (_Shape) {
     _Shape.prototype._initProperties.call(this);
 
     this._attrs.canStroke = true;
+    this._attrs.canFill = true;
     this._attrs.type = 'arc';
   };
 
@@ -13518,8 +13523,9 @@ function () {
         crosshairsShapeY = this.crosshairsShapeY;
 
     if (showXTip) {
-      var el = canvas.get('el');
-      var canvasHeight = Util.getHeight(el);
+      // const el = canvas.get('el');
+      // const canvasHeight = Util.getHeight(el);
+      var canvasHeight = canvas.get('height');
       var xTipWidth = xTipBox.getWidth();
       var xTipHeight = xTipBox.getHeight();
       var posX = pos - xTipWidth / 2;
@@ -17270,7 +17276,7 @@ var CommonChart = (function () {
     };
     CommonChart.prototype.renderDefaultTooltip = function (chart, config) {
         var cTooltip = __WEBPACK_IMPORTED_MODULE_0__utils_Commom__["a" /* Util */].deepClone(config.tooltip);
-        if (cTooltip.show && cTooltip.defaultItem) {
+        if (cTooltip && cTooltip.show && cTooltip.defaultItem) {
             var point = chart.getPosition(cTooltip.defaultItem);
             chart.showTooltip(point);
         }
