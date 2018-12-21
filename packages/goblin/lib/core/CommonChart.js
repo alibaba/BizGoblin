@@ -201,7 +201,7 @@ var CommonChart = function () {
     };
     CommonChart.prototype.renderDefaultTooltip = function (chart, config) {
         var cTooltip = _Commom.Util.deepClone(config.tooltip);
-        if (cTooltip.show && cTooltip.defaultItem) {
+        if (cTooltip && cTooltip.show && cTooltip.defaultItem) {
             var point = chart.getPosition(cTooltip.defaultItem);
             chart.showTooltip(point);
         }
