@@ -216,7 +216,7 @@ class CommonChart {
 
   private renderDefaultTooltip(chart: any, config: any) {
     const cTooltip = Util.deepClone(config.tooltip);
-    if (cTooltip.show && cTooltip.defaultItem) {
+    if (cTooltip && cTooltip.show && cTooltip.defaultItem) {
       const point = chart.getPosition(cTooltip.defaultItem);
       chart.showTooltip(point);
     }
