@@ -27,6 +27,7 @@ export interface ITooltip {
   valueStyle?: ICommon.ITextStyle;
   showItemMarker?: boolean;
   itemMarkerStyle?: ItemMarkerStyle;
+  defaultItem?: object;
   custom?: ICommon.eventFunc | boolean;
   onHide?: ICommon.eventFunc;
   onShow?: ICommon.eventFunc;

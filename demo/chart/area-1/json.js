@@ -1,7 +1,8 @@
-import goblin from '../../../packages/goblin/src/index';
+import goblin1 from '../../../packages/goblin/umd/goblin.min.js';
 import { data, defs } from './data';
 
-goblin({
+console.log(viser)
+goblin1({
   data: data,
   defs: defs,
   axis: [{

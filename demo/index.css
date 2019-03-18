@@ -2,9 +2,6 @@
   margin: 0;
 }
 
-#mountNode {
-}
-
 #root{
   display: inline-block;
   margin: 30px;

@@ -1,19 +1,24 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
-exports.process = undefined;
+exports.process = void 0;
 
-var _Commom = require('../utils/Commom');
+var _Commom = require("../utils/Commom");
 
-var process = exports.process = function process(chart, config) {
-    var cCoord = _Commom.Util.deepClone(config.coord);
-    if (!cCoord) {
-        return chart.coord('rect');
-    }
-    var type = cCoord.type || 'rect';
-    var options = _Commom.Util.omit(cCoord, ['type']);
-    return chart.coord(type, options);
+var process = function process(chart, config) {
+  var cCoord = _Commom.Util.deepClone(config.coord);
+
+  if (!cCoord) {
+    return chart.coord('rect');
+  }
+
+  var type = cCoord.type || 'rect';
+
+  var options = _Commom.Util.omit(cCoord, ['type']);
+
+  return chart.coord(type, options);
 };
-//# sourceMappingURL=setCoordConfig.js.map
+
+exports.process = process;

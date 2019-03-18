@@ -42,6 +42,7 @@ class CommonChart {
     this.setTooltip(chart, config);
     this.oriConfig = config;
     chart.render();
+    this.renderDefaultTooltip(chart, config);
   }
 
   public repaint (config: IMainConfig) {
@@ -131,11 +132,11 @@ class CommonChart {
       hasChartChange = true;
     }
 
-    // if ((!Util.isNil(oriConfig.data) || !Util.isNil(config.data)) &&
-    //   !Util.isEqual(oriConfig.data, config.data)) {
-    //   this.setData(chart, config);
-    //   hasChartChange = true;
-    // }
+    if ((!Util.isNil(oriConfig.data) || !Util.isNil(config.data)) &&
+      !Util.isEqual(oriConfig.data, config.data)) {
+      this.setData(chart, config);
+      hasChartChange = true;
+    }
     return hasChartChange;
   }
 
@@ -210,6 +211,14 @@ class CommonChart {
           config[key] = transform2px(config[key], relativeValue, rootFontSize);
         }
       }
+    }
+  }
+
+  private renderDefaultTooltip(chart: any, config: any) {
+    const cTooltip = Util.deepClone(config.tooltip);
+    if (cTooltip && cTooltip.show && cTooltip.defaultItem) {
+      const point = chart.getPosition(cTooltip.defaultItem);
+      chart.showTooltip(point);
     }
   }
 }

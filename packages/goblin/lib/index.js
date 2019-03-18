@@ -1,36 +1,38 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
-exports.track = exports.Global = exports.registerShape = undefined;
+exports.default = _default;
+exports.Shape = exports.track = exports.Global = exports.registerShape = void 0;
 
-exports.default = function (config) {
-    if (_Commom.Util.isNil(config) || _Commom.Util.isEmpty(config)) {
-        return;
-    }
-    var commonChart = new _CommonChart2.default(config);
-    commonChart.render();
-    return commonChart;
-};
+var _CommonChart = _interopRequireDefault(require("./core/CommonChart"));
 
-var _CommonChart = require('./core/CommonChart');
+var CustomizeUtils = _interopRequireWildcard(require("./utils/CustomizeUtils"));
 
-var _CommonChart2 = _interopRequireDefault(_CommonChart);
-
-var _CustomizeUtils = require('./utils/CustomizeUtils');
-
-var CustomizeUtils = _interopRequireWildcard(_CustomizeUtils);
-
-var _Commom = require('./utils/Commom');
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _Commom = require("./utils/Commom");
 
 var F2 = require('@antv/f2');
-var registerShape = exports.registerShape = CustomizeUtils.registerShape;
-var Global = exports.Global = F2.Global;
 
-//# sourceMappingURL=index.js.map
-var track = exports.track = F2.track;
+var registerShape = CustomizeUtils.registerShape;
+exports.registerShape = registerShape;
+var Global = F2.Global;
+exports.Global = Global;
+var track = F2.track;
+exports.track = track;
+var Shape = F2.Shape;
+exports.Shape = Shape;
+
+function _default(config) {
+  if (_Commom.Util.isNil(config) || _Commom.Util.isEmpty(config)) {
+    return;
+  }
+
+  var commonChart = new _CommonChart.default(config);
+  commonChart.render();
+  return commonChart;
+}

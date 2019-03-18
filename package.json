@@ -1,25 +1,30 @@
 {
   "name": "bizgoblin",
-  "version": "0.0.1",
-  "description": "data vis chart for mobile.",
-  "bugs": {
-    "url": "https://github.com/alibaba/BizGoblin/issues"
+  "devDependencies": {
+    "lerna": "^3.13.1"
   },
-  "homepage": "https://github.com/alibaba/BizGoblin",
+  "version": "0.1.0",
+  "description": "data vis chart for mobile.",
   "scripts": {
     "postinstall": "lerna bootstrap",
     "pub": "lerna publish"
-  },
-  "devDependencies": {
-    "lerna": "^2.4.0"
-  },
-  "engines": {
-    "node": ">=8"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alibaba/BizGoblin.git"
   },
+  "engines": {
+    "node": ">=8"
+  },
+  "keywords": [
+    "f2",
+    "chart",
+    "datavis"
+  ],
   "author": "bizgoblin group",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alibaba/BizGoblin/issues"
+  },
+  "homepage": "https://bizcharts.net/products/bizGoblin"
 }
