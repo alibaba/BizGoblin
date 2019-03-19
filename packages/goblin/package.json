@@ -17,8 +17,13 @@
   "keywords": [
     "f2",
     "mobile",
-    "chart",
-    "datavis"
+    "charts",
+    "data visualization"
+  ],
+  "files": [
+    "umd",
+    "es",
+    "lib"
   ],
   "author": "bizgoblin group",
   "license": "MIT",
