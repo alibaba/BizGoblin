@@ -1,5 +1,4 @@
 import CommonChart from './core/CommonChart';
-import * as CustomizeUtils from './utils/CustomizeUtils';
 import { Util } from './utils/Commom';
 import IAxisConfig, { IAxis } from './typed/IAxis';
 import IChart from './typed/IChart';
@@ -34,9 +33,7 @@ export {
   ITooltip,
   ITooltipConfig
 };
-export const registerShape = CustomizeUtils.registerShape;
 export const Global = F2.Global;
-export const track = F2.track;
 export const Shape = F2.Shape;
 
 export default function (config: any) {

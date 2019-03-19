@@ -49,7 +49,7 @@ Object.defineProperty(exports, "Chart", {
     return _Chart.default;
   }
 });
-exports.default = exports.Global = void 0;
+exports.Shape = exports.Global = void 0;
 
 var goblin = _interopRequireWildcard(require("goblin"));
 
@@ -59,8 +59,5 @@ var _Chart = _interopRequireDefault(require("./components/Chart"));
 
 var Global = goblin.Global;
 exports.Global = Global;
-var BizGoblin = {
-  track: goblin.track
-};
-var _default = BizGoblin;
-exports.default = _default;
+var Shape = goblin.Shape;
+exports.Shape = Shape;
