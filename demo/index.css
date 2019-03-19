@@ -70,6 +70,6 @@
 #canvas-container {
   border: none;
   width: 375px;
-  height: calc(100% - 103px);
-  margin: 103px 3px 0 3px;
+  height: calc(100% - 143px);
+  margin: 103px 3px 40px 3px;
 }

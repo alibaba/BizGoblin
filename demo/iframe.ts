@@ -9,7 +9,6 @@ function init() {
   if (!/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
     Touchemulator();
   }
-  console.log(window.location.search);
   const params: chartType = { type: '', fileName: ''};
   window.location.search.slice(1).split('&').forEach(param => {
     const [ key, value ] = param.split('=');
