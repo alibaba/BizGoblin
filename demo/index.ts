@@ -1,5 +1,4 @@
 import list from './chart/index';
-import * as ReactDOM from 'react-dom';
 
 function fetchData(state) {
   const type = state.type;
@@ -7,7 +6,7 @@ function fetchData(state) {
   const desc = state.desc;
   document.getElementById('phone_title').innerHTML = desc;
   const frameDOM: any = document.getElementById('canvas-container');
-  frameDOM.src = `./iframe.html?type=${type}&fileName=${fileName}`;
+  frameDOM.src = `iframe.html?type=${type}&fileName=${fileName}`;
 }
 
 function loadEvents() {

@@ -1,11 +1,17 @@
 import goblin from '../../../packages/goblin/umd/goblin.min.js';
-import { data, defs } from './data';
+import { data } from './data';
 
 goblin({
   data: data,
-  defs: defs,
+  defs: [{
+    dataKey: 'height',
+    tickCount: 5
+  }, {
+    dataKey: 'weight',
+    tickCount: 5
+  }],
   axis: [{
-    dataKey: 'time',
+    dataKey: 'height',
     label: function label(text, index, total) {
       var textCfg = {};
       if (index === 0) {
@@ -16,19 +22,18 @@ goblin({
       return textCfg;
     }
   }],
-  tooltip: {
-    showCrosshairs: true
-  },
+  legend: true,
   series: [{
-    geom: 'area',
-    position: 'time*tem'
-  }, {
-    geom: 'line',
-    position: 'time*tem'
+    geom: 'point',
+    position: 'height*weight',
+    color: 'gender',
+    style: {
+      fillOpacity: 0.65
+    }
   }],
   chart: {
     id: 'mountNode',
-    // width: 375,
+    width: 375,
     height:240,
     pixelRatio: window.devicePixelRatio*2
   }

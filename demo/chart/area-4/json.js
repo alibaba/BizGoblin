@@ -5,9 +5,9 @@ goblin({
   data: data,
   defs: defs,
   axis: [{
-    dataKey: 'time',
-    label: function label(text, index, total) {
-      var textCfg = {};
+    dataKey: 'year',
+    label: function (text, index, total) {
+      const textCfg = {};
       if (index === 0) {
         textCfg.textAlign = 'left';
       } else if (index === total - 1) {
@@ -19,16 +19,21 @@ goblin({
   tooltip: {
     showCrosshairs: true
   },
+  legend: false,
   series: [{
     geom: 'area',
-    position: 'time*tem'
+    position: 'year*value',
+    color: 'type',
+    shape: 'smooth'
   }, {
     geom: 'line',
-    position: 'time*tem'
+    position: 'year*value',
+    color: 'type',
+    shape: 'smooth'
   }],
   chart: {
     id: 'mountNode',
-    // width: 375,
+    width: 375,
     height:240,
     pixelRatio: window.devicePixelRatio*2
   }

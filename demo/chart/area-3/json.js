@@ -5,9 +5,10 @@ goblin({
   data: data,
   defs: defs,
   axis: [{
-    dataKey: 'time',
-    label: function label(text, index, total) {
-      var textCfg = {};
+    dataKey: 'month',
+    line: null,
+    label: function (text, index, total) {
+      const textCfg = {};
       if (index === 0) {
         textCfg.textAlign = 'left';
       } else if (index === total - 1) {
@@ -15,20 +16,30 @@ goblin({
       }
       return textCfg;
     }
+  }, {
+    dataKey: 'value',
+    grid: function (text) {
+      if (text === '0') {
+        return {
+          lineDash: null,
+          lineWidth: 1
+        };
+      }
+    }
   }],
   tooltip: {
     showCrosshairs: true
   },
   series: [{
     geom: 'area',
-    position: 'time*tem'
+    position: 'month*value'
   }, {
     geom: 'line',
-    position: 'time*tem'
+    position: 'month*value'
   }],
   chart: {
     id: 'mountNode',
-    // width: 375,
+    width: 375,
     height:240,
     pixelRatio: window.devicePixelRatio*2
   }
