@@ -1,8 +1,9 @@
-import goblin1 from '../../../packages/goblin/umd/goblin.min.js';
+import goblin from '../../../packages/goblin/umd/goblin.min.js';
 import { data, defs } from './data';
 
-console.log(viser)
-goblin1({
+console.log('asdfasdf')
+
+goblin({
   data: data,
   defs: defs,
   axis: [{
@@ -29,7 +30,7 @@ goblin1({
   }],
   chart: {
     id: 'mountNode',
-    width:320,
+    // width:320,
     height:240,
     pixelRatio: window.devicePixelRatio*2
   }

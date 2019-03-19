@@ -16,12 +16,12 @@
 }
 .phone_con {
   position: relative;
-  margin: 90px auto 0;
-  background-size: 100%;
+  margin: 90px auto 20px;
+  background-size: 100% 100%;
   background-image: url(http://goh5.luoyefe.com/back/dist/img/phone.svg);
   background-repeat: no-repeat;
-  width: 326px;
-  height: 620px;
+  width: 381px;
+  height: 656px;
 }
 .phone_con .phone_screen {
   width: 320px;
@@ -65,4 +65,11 @@
 }
 #nav a{
   text-decoration: none
+}
+
+#canvas-container {
+  border: none;
+  width: 375px;
+  height: calc(100% - 103px);
+  margin: 103px 3px 0 3px;
 }

@@ -5,10 +5,13 @@ module.exports = {
   mode: 'development',
   context: __dirname,
   devtool: '#inline-source-map',
-  entry: ['./index.tsx'],
+  entry: {
+    index: './index.ts',
+    frame: './iframe.ts'
+  },
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
+    filename: 'bundle.[name].js',
     publicPath: 'http://localhost:3000/build/'
   },
   resolve: {

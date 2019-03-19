@@ -1,0 +1,8 @@
+body {
+  margin: 0;
+  height: 514px;
+}
+
+#mountNode {
+  width: 100%;
+}

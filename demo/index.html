@@ -3,11 +3,8 @@
   <title>goblin</title>
   <meta chartset="utf-8" />
   <link rel="stylesheet" href="./index.css">
-  <script src="./goblin.min.js" ></script>
-  <script src="./viser.min.js" ></script>
 </head>
 <body>
-    <script src="https://unpkg.com/bizgoblin@0.0.2/dist/goblin-react.min.js"></script>
   <div id="nav">
       <a href="#" class="item left">GOBLIN</a>
       <a href="" class="item">专业轻巧的移动端可视化图表解决方案</a>
@@ -15,13 +12,13 @@
 <div id="root"></div>
 <div class="phone_con">
   <div id="phone_title"></div>
-  <div id="mount" class="phone_screen"></div>
+  <!-- <div id="mount" class="phone_screen"></div>
   <div id="mountBox" class="phone_screen">
     <canvas id='mountNode'></canvas>
-  </div>
+  </div> -->
+  <iframe id="canvas-container" src="./iframe.html" name="canvasFrame"></iframe>
 </div>
 
 </body>
-<script src="./build/bundle.js" charset="utf-8" ></script>
-<script>window._APIMAP_ENV='local'</script>
+<script src="./build/bundle.index.js" charset="utf-8" ></script>
 </html>
