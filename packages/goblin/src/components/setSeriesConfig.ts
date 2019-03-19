@@ -1,5 +1,4 @@
 import { Util } from '../utils/Commom';
-import IMainConfig from '../typed/IMain';
 import { ISeries } from '../typed/ISeries';
 
 function setSeriesGeom (chart: any, currSeries: ISeries) {
@@ -121,7 +120,7 @@ function setSeriesStyle (chart: any, currSeries: ISeries) {
   return chart;
 }
 
-export const process = (chart: any, config: IMainConfig) => {
+export const process = (chart: any, config: any) => {
   const cSeries = Util.deepClone(config.series);
   const isArr = Util.isArray(cSeries);
 

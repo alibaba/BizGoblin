@@ -2,10 +2,17 @@
   "compilerOptions": {
     "module": "es2015",
     "outDir": "es",
-    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "strict": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "declaration": true,
+    "lib": [
+      "dom",
+      "es2015"
+    ]
   },
   "include": [
     "src/**/*"

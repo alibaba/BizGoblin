@@ -195,10 +195,10 @@ function eq(a: any, b: any, stack: any): boolean {
 }
 
 export const transform2px = function (
-  value: string | number | (string | number)[],
-  relativeValue?: number,
-  rootFontSize?: number): string | number | (string | number)[] {
-  if (typeof value === 'string') {
+  value: any,
+  relativeValue: number = 0,
+  rootFontSize: number = 0): string | number | (string | number)[] {
+  if (Util.isString(value)) {
     if (/^(\d*.?\d*)%$/.test(value)) {
       return Math.floor(Number(value.match(/^(\d*.?\d*)%$/)[1]) / 100 * relativeValue) || 0;
     }

@@ -36,7 +36,7 @@ var CommonChart = function () {
     this.viewInstance = {};
     this.config = _Commom.Util.deepClone(config);
     this.initChartConfig(this.config);
-    var chart = this.chartInstance = new F2.Chart(this.config.chart);
+    this.chartInstance = new F2.Chart(this.config.chart);
   }
 
   CommonChart.prototype.render = function () {
@@ -101,12 +101,6 @@ var CommonChart = function () {
 
   CommonChart.prototype.setTooltip = function (chart, config) {
     return setTooltipConfig.process(chart, config);
-  };
-
-  CommonChart.prototype.repaintData = function (chart, oriConfig, config) {
-    if ((!_Commom.Util.isNil(oriConfig.data) || !_Commom.Util.isNil(config.data)) && !_Commom.Util.isEqual(oriConfig.data, config.data)) {
-      chart.changeData(config.data);
-    }
   };
 
   CommonChart.prototype.repaintContent = function (chart, oriConfig, config) {
@@ -177,7 +171,7 @@ var CommonChart = function () {
 
     var relativeWidth = chartEl.parentElement.clientWidth;
     var relativeHeight = chartEl.parentElement.clientHeight;
-    var rootFontSize = Number(window.document.documentElement.style.fontSize.split('px')[0]);
+    var rootFontSize = Number((window.document.documentElement.style.fontSize || '').split('px')[0]);
     var width = chart.width;
     var height = chart.height;
     var padding = chart.padding;

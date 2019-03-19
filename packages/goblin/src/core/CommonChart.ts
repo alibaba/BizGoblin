@@ -14,7 +14,6 @@ import * as setAnimateConfig from '../components/setAnimateConfig';
 import * as setLegentConfig from '../components/setLegendConfig';
 import * as setTooltipConfig from '../components/setTooltipConfig';
 
-// const F2 = require('../../f2_lib/f2/core');
 const F2 = require('@antv/f2');
 
 class CommonChart {
@@ -26,7 +25,7 @@ class CommonChart {
   constructor (config: IMainConfig) {
     this.config = Util.deepClone(config);
     this.initChartConfig(this.config);
-    const chart: any = this.chartInstance = new F2.Chart(this.config.chart);
+    this.chartInstance = new F2.Chart(this.config.chart);
   }
 
   public render () {
@@ -92,12 +91,12 @@ class CommonChart {
     return setTooltipConfig.process(chart, config)
   }
 
-  private repaintData (chart: any, oriConfig: IMainConfig, config: IMainConfig) {
-    if ((!Util.isNil(oriConfig.data) || !Util.isNil(config.data)) &&
-      !Util.isEqual(oriConfig.data, config.data)) {
-      chart.changeData(config.data);
-    }
-  }
+  // private repaintData (chart: any, oriConfig: IMainConfig, config: IMainConfig) {
+  //   if ((!Util.isNil(oriConfig.data) || !Util.isNil(config.data)) &&
+  //     !Util.isEqual(oriConfig.data, config.data)) {
+  //     chart.changeData(config.data);
+  //   }
+  // }
 
   private repaintContent (chart: any, oriConfig: IMainConfig, config: IMainConfig) {
     let hasChartChange = false;
@@ -141,7 +140,7 @@ class CommonChart {
   }
 
   private checkChartConfig (config: IMainConfig) {
-    const chart = config.chart
+    const chart: any = config.chart
     if (Util.isNil(chart.height)) {
       throw new Error('please set correct chart option')
     }
@@ -162,7 +161,7 @@ class CommonChart {
 
   private initChartConfig (config: IMainConfig) {
     let chartEl;
-    const chart = config.chart;
+    const chart: any = config.chart;
 
     if(chart.id){
       chartEl = document.getElementById(chart.id);
@@ -174,7 +173,7 @@ class CommonChart {
 
     const relativeWidth: number = chartEl.parentElement.clientWidth;
     const relativeHeight: number = chartEl.parentElement.clientHeight;
-    const rootFontSize: number = Number(window.document.documentElement.style.fontSize.split('px')[0]);
+    const rootFontSize: number = Number((window.document.documentElement.style.fontSize || '').split('px')[0]);
     let width: any = chart.width;
     let height: any = chart.height;
     let padding: any = chart.padding;

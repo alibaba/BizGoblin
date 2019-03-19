@@ -216,7 +216,15 @@ function eq(a, b, stack) {
 }
 
 var transform2px = function transform2px(value, relativeValue, rootFontSize) {
-  if (typeof value === 'string') {
+  if (relativeValue === void 0) {
+    relativeValue = 0;
+  }
+
+  if (rootFontSize === void 0) {
+    rootFontSize = 0;
+  }
+
+  if (Util.isString(value)) {
     if (/^(\d*.?\d*)%$/.test(value)) {
       return Math.floor(Number(value.match(/^(\d*.?\d*)%$/)[1]) / 100 * relativeValue) || 0;
     }

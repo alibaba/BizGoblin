@@ -4,7 +4,7 @@
   "description": "goblin is a toolkit fit for data vis engineer.",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "types": "src/index.ts",
+  "types": "es/index.d.ts",
   "scripts": {
     "build": "npm run build:ts && npm run build:cjs && npm run build:umd",
     "build:ts": "rimraf es && tsc",
