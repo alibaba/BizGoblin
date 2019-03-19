@@ -1,4 +1,4 @@
-import goblin, { Global } from '../../../packages/goblin/umd/goblin.min.js';
+import goblin, { Global } from '../../../packages/goblin/lib';
 import { data, defs } from './data';
 
 goblin({

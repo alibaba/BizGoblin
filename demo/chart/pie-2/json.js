@@ -1,4 +1,4 @@
-import goblin from '../../../packages/goblin/umd/goblin.min.js';
+import goblin from '../../../packages/goblin/lib';
 import { data } from './data';
 
 goblin({
