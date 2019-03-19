@@ -53,7 +53,7 @@
     "webpack-cli": "^3.3.0"
   },
   "dependencies": {
-    "@antv/f2": "^3.3.7",
+    "@antv/f2": "3.3.7",
     "@types/node": "^11.11.3"
   }
 }
