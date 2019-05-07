@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { ICoord, IGuide, IAxis, ISeries, ITooltip, ILegend } from 'goblin';
+import { ICoord, IGuide, IAxis, ISeries, ITooltip, ILegend } from 'goblin-base';
 
 class Props {};
 

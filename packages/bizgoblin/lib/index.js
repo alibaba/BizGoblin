@@ -51,7 +51,7 @@ Object.defineProperty(exports, "Chart", {
 });
 exports.Shape = exports.Global = void 0;
 
-var goblin = _interopRequireWildcard(require("goblin"));
+var goblin = _interopRequireWildcard(require("goblin-base"));
 
 var _SubComponent = require("./components/SubComponent");
 

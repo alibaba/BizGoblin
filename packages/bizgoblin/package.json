@@ -32,7 +32,7 @@
   "dependencies": {
     "@types/node": "^11.11.3",
     "@types/prop-types": "^15.7.0",
-    "goblin": "^0.1.0",
+    "goblin-base": "^0.1.1",
     "prop-types": "^15.7.2"
   },
   "devDependencies": {

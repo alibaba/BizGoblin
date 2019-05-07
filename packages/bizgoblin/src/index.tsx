@@ -1,4 +1,4 @@
-import * as goblin from 'goblin';
+import * as goblin from 'goblin-base';
 import { Coord, Guide, Axis, Geom, Legend, Tooltip } from './components/SubComponent';
 
 export { default as Chart } from './components/Chart';

@@ -13,7 +13,7 @@ var React = _interopRequireWildcard(require("react"));
 
 var PropTypes = _interopRequireWildcard(require("prop-types"));
 
-var _goblin = _interopRequireDefault(require("goblin"));
+var _goblinBase = _interopRequireDefault(require("goblin-base"));
 
 var __extends = void 0 && (void 0).__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
@@ -130,7 +130,7 @@ var Chart = function (_super) {
     this.combineDataConfig(this.props, config);
     this.combineAnimateConfig(this.props, config);
     config.chart.el = this.el;
-    this.chart = (0, _goblin.default)(config);
+    this.chart = (0, _goblinBase.default)(config);
   };
 
   Chart.prototype.repaintChartInstance = function (config) {
@@ -142,7 +142,7 @@ var Chart = function (_super) {
       this.chart.repaint(config);
     } else {
       config.chart.el = this.el;
-      this.chart = (0, _goblin.default)(config);
+      this.chart = (0, _goblinBase.default)(config);
     }
   };
 
