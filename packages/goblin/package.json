@@ -1,6 +1,6 @@
 {
   "name": "goblin-base",
-  "version": "0.0.10",
+  "version": "0.1.0",
   "description": "goblin-base is a toolkit fit for data vis engineer.",
   "main": "lib/index.js",
   "module": "es/index.js",

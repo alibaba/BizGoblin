@@ -1,6 +1,6 @@
 {
   "name": "bizgoblin",
-  "version": "0.0.10",
+  "version": "0.1.0",
   "description": "bizgoblin is react of f2.",
   "main": "lib/index.js",
   "module": "es/index.js",
