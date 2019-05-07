@@ -11,7 +11,7 @@
     "build:cjs": "rimraf lib && cross-env NODE_ENV=commonjs BABEL_ENV=cjs babel ./es -d lib",
     "build:umd": "rimraf umd && cross-env BABEL_ENV=umd webpack --config webpack.config.js",
     "clean": "git clean -fdX .",
-    "lint": "tslint src",
+    "lint": "tslint src/**/*",
     "analyse": "cross-env NODE_ENV=analyse webpack --progress --config webpack.config.js"
   },
   "keywords": [
