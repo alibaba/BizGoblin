@@ -1,6 +1,6 @@
 {
   "name": "goblin",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "goblin is a toolkit fit for data vis engineer.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -55,5 +55,6 @@
   "dependencies": {
     "@antv/f2": "3.3.7",
     "@types/node": "^11.11.3"
-  }
+  },
+  "gitHead": "1880f07764102cc6a3dcc0cd58cba63e4be11625"
 }

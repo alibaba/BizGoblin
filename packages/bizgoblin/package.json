@@ -1,6 +1,6 @@
 {
   "name": "bizgoblin",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "bizgoblin is react of f2.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -65,5 +65,6 @@
   "peerDependencies": {
     "react": "^15.0.0 || ^16.0.0",
     "react-dom": "^15.0.0 || ^16.0.0"
-  }
+  },
+  "gitHead": "1880f07764102cc6a3dcc0cd58cba63e4be11625"
 }
