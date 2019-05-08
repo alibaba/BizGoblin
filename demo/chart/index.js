@@ -16,6 +16,11 @@ export default [
       desc: '折线图1',
       group: '折线图',
       case: ['json', 'react']
+    },{
+      type: 'guide-line-text',
+      desc: '折线图待guide',
+      group: '折线图',
+      case: ['react'],
     },
     {
       type: 'line-2',

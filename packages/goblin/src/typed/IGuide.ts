@@ -26,6 +26,7 @@ export interface IHtmlGuide {
 
 export interface ITextGuide {
   type?: 'text';
+  top?: boolean,
   position?: object | (number | string)[] | func;
   content?: string;
   style?: ICommon.ITextStyle;

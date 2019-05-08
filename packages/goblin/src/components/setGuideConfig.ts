@@ -59,6 +59,9 @@ export const process = (chart: any, config: any) => {
 
   const arrGuide = isArr ? cGuide: [cGuide];
 
+  // 清空 guides
+  chart.guide().clear();
+
   arrGuide.forEach((res: any) => {
     if (res.type === 'line') {
       setGuideLine(chart, res);
