@@ -87,6 +87,7 @@ var process = function process(chart, config) {
   }
 
   var arrGuide = isArr ? cGuide : [cGuide];
+  chart.guide().clear();
   arrGuide.forEach(function (res) {
     if (res.type === 'line') {
       setGuideLine(chart, res);

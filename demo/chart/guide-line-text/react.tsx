@@ -1,4 +1,4 @@
-import { Chart, Axis, Geom, Coord, Tooltip, Legend, Guide } from '../../../packages/bizgoblin/src';
+import { Chart, Axis, Geom, Guide } from '../../../packages/bizgoblin/lib';
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 
@@ -88,7 +88,6 @@ class App extends React.Component<{data?: Array<any>}> {
             data.map(item => (
               <Guide
                 type='text'
-                // top
                 position={[item.month, item.temperature]}
                 offsetY={-20}
                 content={`${item.temperature}`}
