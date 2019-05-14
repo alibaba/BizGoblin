@@ -29,6 +29,7 @@ export interface ILegend {
   clickable?: boolean;
   onClick?: ICommon.eventFunc;
   custom?: boolean;
+  items?: any;
 }
 
 type ILegendConfig = boolean | ILegend | ILegend[];

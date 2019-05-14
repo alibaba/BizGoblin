@@ -111,6 +111,11 @@ var CommonChart = function () {
       hasChartChange = true;
     }
 
+    if ((!_Commom.Util.isNil(oriConfig.legend) || !_Commom.Util.isNil(config.legend)) && !_Commom.Util.isEqual(oriConfig.legend, config.legend)) {
+      this.setCoord(chart, config);
+      hasChartChange = true;
+    }
+
     if ((!_Commom.Util.isNil(oriConfig.axis) || !_Commom.Util.isNil(config.axis)) && !_Commom.Util.isEqual(oriConfig.axis, config.axis)) {
       this.setAxis(chart, config);
       hasChartChange = true;

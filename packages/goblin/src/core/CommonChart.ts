@@ -107,6 +107,12 @@ class CommonChart {
       hasChartChange = true;
     }
 
+    if ((!Util.isNil(oriConfig.legend) || !Util.isNil(config.legend)) &&
+      !Util.isEqual(oriConfig.legend, config.legend)) {
+      this.setLegend(chart, config);
+      hasChartChange = true;
+    }
+
     if ((!Util.isNil(oriConfig.axis) || !Util.isNil(config.axis)) &&
       !Util.isEqual(oriConfig.axis, config.axis)) {
       this.setAxis(chart, config);

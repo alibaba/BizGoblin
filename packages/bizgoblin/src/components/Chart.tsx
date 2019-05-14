@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import goblin from 'goblin-base';
+// import goblin from 'goblin-base';
+import goblin from '../../../goblin/src';
 import IRChart from '../typed/IRChart';
 
 function firstLowerCase(str: string) {

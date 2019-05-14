@@ -90,6 +90,7 @@ function isOwnEmpty(obj) {
 }
 
 var Chart = function (_super) {
+  console.log('asdfsdf')
   __extends(Chart, _super);
 
   function Chart(props) {
@@ -130,6 +131,7 @@ var Chart = function (_super) {
     this.combineDataConfig(this.props, config);
     this.combineAnimateConfig(this.props, config);
     config.chart.el = this.el;
+    console.log('createChartInstance')
     this.chart = (0, _goblinBase.default)(config);
   };
 

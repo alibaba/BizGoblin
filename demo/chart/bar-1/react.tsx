@@ -1,4 +1,4 @@
-import { Chart, Axis, Geom, Tooltip } from '../../../packages/bizgoblin/lib';
+import { Chart, Axis, Geom, Tooltip, Legend } from '../../../packages/bizgoblin/lib';
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { data, defs } from './data'
