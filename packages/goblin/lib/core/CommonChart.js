@@ -112,7 +112,7 @@ var CommonChart = function () {
     }
 
     if ((!_Commom.Util.isNil(oriConfig.legend) || !_Commom.Util.isNil(config.legend)) && !_Commom.Util.isEqual(oriConfig.legend, config.legend)) {
-      this.setCoord(chart, config);
+      this.setLegend(chart, config);
       hasChartChange = true;
     }
 
