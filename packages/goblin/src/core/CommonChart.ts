@@ -24,7 +24,7 @@ class CommonChart {
 
   constructor (config: IMainConfig) {
     this.config = Util.deepClone(config);
-    this.initChartConfig(this.config);
+    this.checkChartConfig(this.config);
     this.chartInstance = new F2.Chart(this.config.chart);
   }
 
@@ -147,34 +147,14 @@ class CommonChart {
 
   private checkChartConfig (config: IMainConfig) {
     const chart: any = config.chart
-    if (Util.isNil(chart.height)) {
-      throw new Error('please set correct chart option')
-    }
-  }
-
-  private renderDiffConfig (config: IMainConfig) {
-    const oriConfig = this.oriConfig;
-    const chart = this.chartInstance;
-
-    // this.repaintData(chart, oriConfig, config);
-
-    const hasContentChange = this.repaintContent(chart, oriConfig, config);
-
-    if (hasContentChange) {
-      chart.repaint();
-    }
-  }
-
-  private initChartConfig (config: IMainConfig) {
     let chartEl;
-    const chart: any = config.chart;
 
     if(chart.id){
       chartEl = document.getElementById(chart.id);
     }else if(chart.el){
       chartEl = chart.el;
     }else{
-      throw '未获取到图表实例元素'
+      throw new Error('please set correct chart option');
     }
 
     const relativeWidth: number = chartEl.parentElement.clientWidth;
@@ -201,6 +181,19 @@ class CommonChart {
     chart.width = width || 0;
     chart.height = height || 0;
     this.handleNotPx(config, relativeWidth, rootFontSize);
+  }
+
+  private renderDiffConfig (config: IMainConfig) {
+    const oriConfig = this.oriConfig;
+    const chart = this.chartInstance;
+
+    // this.repaintData(chart, oriConfig, config);
+
+    const hasContentChange = this.repaintContent(chart, oriConfig, config);
+
+    if (hasContentChange) {
+      chart.repaint();
+    }
   }
 
   private handleNotPx (config: any, relativeValue: number, rootFontSize: number) {
