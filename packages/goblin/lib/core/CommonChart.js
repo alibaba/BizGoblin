@@ -35,7 +35,7 @@ var CommonChart = function () {
   function CommonChart(config) {
     this.viewInstance = {};
     this.config = _Commom.Util.deepClone(config);
-    this.initChartConfig(this.config);
+    this.checkChartConfig(this.config);
     this.chartInstance = new F2.Chart(this.config.chart);
   }
 
@@ -146,32 +146,14 @@ var CommonChart = function () {
 
   CommonChart.prototype.checkChartConfig = function (config) {
     var chart = config.chart;
-
-    if (_Commom.Util.isNil(chart.height)) {
-      throw new Error('please set correct chart option');
-    }
-  };
-
-  CommonChart.prototype.renderDiffConfig = function (config) {
-    var oriConfig = this.oriConfig;
-    var chart = this.chartInstance;
-    var hasContentChange = this.repaintContent(chart, oriConfig, config);
-
-    if (hasContentChange) {
-      chart.repaint();
-    }
-  };
-
-  CommonChart.prototype.initChartConfig = function (config) {
     var chartEl;
-    var chart = config.chart;
 
     if (chart.id) {
       chartEl = document.getElementById(chart.id);
     } else if (chart.el) {
       chartEl = chart.el;
     } else {
-      throw '未获取到图表实例元素';
+      throw new Error('please set correct chart option');
     }
 
     var relativeWidth = chartEl.parentElement.clientWidth;
@@ -201,6 +183,16 @@ var CommonChart = function () {
     chart.width = width || 0;
     chart.height = height || 0;
     this.handleNotPx(config, relativeWidth, rootFontSize);
+  };
+
+  CommonChart.prototype.renderDiffConfig = function (config) {
+    var oriConfig = this.oriConfig;
+    var chart = this.chartInstance;
+    var hasContentChange = this.repaintContent(chart, oriConfig, config);
+
+    if (hasContentChange) {
+      chart.repaint();
+    }
   };
 
   CommonChart.prototype.handleNotPx = function (config, relativeValue, rootFontSize) {
