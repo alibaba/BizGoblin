@@ -72,10 +72,10 @@ export default class Chart extends React.Component<IRChart, any> {
     this.combineDataConfig(this.props, config);
     this.combineAnimateConfig(this.props, config);
 
+    config.chart.el = this.el;
     if (this.chart) {
       this.chart.repaint(config);
     } else {
-      config.chart.el = this.el;
       this.chart = goblin(config);
     }
   }
