@@ -29,6 +29,8 @@ var setLegentConfig = _interopRequireWildcard(require("../components/setLegendCo
 
 var setTooltipConfig = _interopRequireWildcard(require("../components/setTooltipConfig"));
 
+var setPieLabelConfig = _interopRequireWildcard(require("../components/setPieLabelConfig"));
+
 var F2 = require('@antv/f2');
 
 var CommonChart = function () {
@@ -50,6 +52,7 @@ var CommonChart = function () {
     this.setLegend(chart, config);
     this.setAnimate(chart, config);
     this.setTooltip(chart, config);
+    this.setPieLabel(chart, config);
     this.oriConfig = config;
     chart.render();
     this.renderDefaultTooltip(chart, config);
@@ -103,6 +106,10 @@ var CommonChart = function () {
     return setTooltipConfig.process(chart, config);
   };
 
+  CommonChart.prototype.setPieLabel = function (chart, config) {
+    return setPieLabelConfig.process(chart, config);
+  };
+
   CommonChart.prototype.repaintContent = function (chart, oriConfig, config) {
     var hasChartChange = false;
 
@@ -138,6 +145,11 @@ var CommonChart = function () {
 
     if ((!_Commom.Util.isNil(oriConfig.data) || !_Commom.Util.isNil(config.data)) && !_Commom.Util.isEqual(oriConfig.data, config.data)) {
       this.setData(chart, config);
+      hasChartChange = true;
+    }
+
+    if ((!_Commom.Util.isNil(oriConfig.pieLabel) || !_Commom.Util.isNil(config.pieLabel)) && !_Commom.Util.isEqual(oriConfig.pieLabel, config.pieLabel)) {
+      this.setPieLabel(chart, config);
       hasChartChange = true;
     }
 

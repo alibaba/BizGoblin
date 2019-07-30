@@ -35,6 +35,7 @@ export {
 };
 export const Global = F2.Global;
 export const Shape = F2.Shape;
+export const Chart = F2.Chart;
 
 export default function (config: any) {
   if (Util.isNil(config) || Util.isEmpty(config)) {

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = _default;
-exports.Shape = exports.Global = void 0;
+exports.Chart = exports.Shape = exports.Global = void 0;
 
 var _CommonChart = _interopRequireDefault(require("./core/CommonChart"));
 
@@ -18,6 +18,8 @@ var Global = F2.Global;
 exports.Global = Global;
 var Shape = F2.Shape;
 exports.Shape = Shape;
+var Chart = F2.Chart;
+exports.Chart = Chart;
 
 function _default(config) {
   if (_Commom.Util.isNil(config) || _Commom.Util.isEmpty(config)) {

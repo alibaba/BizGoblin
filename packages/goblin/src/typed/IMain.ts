@@ -7,6 +7,7 @@ import IDefs from './IDefs';
 import IAnimate from './IAnimate';
 import ILegend from './ILegend';
 import ITooltip from './ITooltip';
+import IPieLabel from './IPieLabel';
 
 interface ISMain {
   data?: any;
@@ -19,6 +20,7 @@ interface ISMain {
   animate?: IAnimate;
   legend?: ILegend;
   tooltip?: ITooltip;
+  pieLabel?: IPieLabel;
 }
 
 type IMainConfig = ISMain;

@@ -13,6 +13,7 @@ import * as setDataConfig from '../components/setDataConfig';
 import * as setAnimateConfig from '../components/setAnimateConfig';
 import * as setLegentConfig from '../components/setLegendConfig';
 import * as setTooltipConfig from '../components/setTooltipConfig';
+import * as setPieLabelConfig from '../components/setPieLabelConfig';
 
 const F2 = require('@antv/f2');
 
@@ -39,6 +40,7 @@ class CommonChart {
     this.setLegend(chart, config);
     this.setAnimate(chart, config);
     this.setTooltip(chart, config);
+    this.setPieLabel(chart, config);
     this.oriConfig = config;
     chart.render();
     this.renderDefaultTooltip(chart, config);
@@ -91,6 +93,10 @@ class CommonChart {
     return setTooltipConfig.process(chart, config)
   }
 
+  private setPieLabel (chart: any, config: IMainConfig) {
+    return setPieLabelConfig.process(chart, config);
+  }
+
   // private repaintData (chart: any, oriConfig: IMainConfig, config: IMainConfig) {
   //   if ((!Util.isNil(oriConfig.data) || !Util.isNil(config.data)) &&
   //     !Util.isEqual(oriConfig.data, config.data)) {
@@ -140,6 +146,12 @@ class CommonChart {
     if ((!Util.isNil(oriConfig.data) || !Util.isNil(config.data)) &&
       !Util.isEqual(oriConfig.data, config.data)) {
       this.setData(chart, config);
+      hasChartChange = true;
+    }
+
+    if ((!Util.isNil(oriConfig.pieLabel) || !Util.isNil(config.pieLabel)) &&
+    !Util.isEqual(oriConfig.pieLabel, config.pieLabel)) {
+      this.setPieLabel(chart, config);
       hasChartChange = true;
     }
     return hasChartChange;

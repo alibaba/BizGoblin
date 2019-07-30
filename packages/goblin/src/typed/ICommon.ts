@@ -1,3 +1,19 @@
+export interface ICommonDrawStyle {
+  fill?: string;
+  fillStyle?: string;
+  fillOpacity?: number;
+  stroke?: string;
+  strokeStyle?: string;
+  strokeOpacity?: number;
+  shadowColor?: string;
+  shadowBlur?: number;
+  shadowOffsetX?: number;
+  shadowOffsetY?: number;
+  globalOpacity?: number;
+  opacity?: number;
+  globalCompositionOperation?: string;
+}
+
 export interface ITextStyle {
   fontSize?: number | string;
   fontFamily?: string;
@@ -16,6 +32,13 @@ export interface ILineStyle {
   lineHeight?: number;
   lineDash?: number[];
   length?: number;
+}
+
+export interface ICircleStyle {
+  x?: number;
+  y?: number;
+  r?: number;
+  fill?: string;
 }
 
 export type formatterFunc = (val: number | string) => string | number;

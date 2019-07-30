@@ -21,7 +21,7 @@ export interface IHtmlGuide {
   type?: 'html';
   position?: object | (number | string)[] | func;
   html?: string;
-  point: (number | string)[];
+  point?: (number | string)[];
 }
 
 export interface ITextGuide {
