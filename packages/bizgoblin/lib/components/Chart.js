@@ -204,6 +204,10 @@ var Chart = function (_super) {
       }
 
       config.guide.push(props);
+    } else if (nameLowerCase === 'pielabel') {
+      if (!isOwnEmpty(props)) {
+        config.pieLabel = props;
+      }
     } else {
       config[nameLowerCase] = props;
     }
