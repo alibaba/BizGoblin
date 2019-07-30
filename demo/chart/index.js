@@ -118,6 +118,21 @@ export default [
       desc: '饼图2',
       group: '饼图',
       case: ['json', 'react']
+    },{
+      type: 'pie-labelline',
+      desc: '带文本的饼图',
+      group: '饼图',
+      case: ['json', 'react']
+    }, {
+      type: 'pie-with-label',
+      desc: '带图例、文本的饼图',
+      group: '饼图',
+      case: ['json', 'react'],
+    }, {
+      type: 'pie-click',
+      desc: '可点击的文本',
+      group: '饼图',
+      case: ['json', 'react'],
     }, {
       type: 'radar-1',
       desc: '雷达图1',

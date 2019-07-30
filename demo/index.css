@@ -2,10 +2,22 @@
   margin: 0;
 }
 
+body {
+  height: 100%;
+}
+
+.content {
+  padding-top: 60px;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+}
+
 #root{
-  display: inline-block;
-  margin: 30px;
-  position: fixed;
+  width: 220px;
+  height: calc(100% - 60px);
+  overflow: scroll;
+  margin: 20px;
 }
 .chart-item{
   margin-left:20px;
@@ -14,9 +26,11 @@
 .chart-item div{
   display: inline-block
 }
+.phone-wrap {
+  flex: auto;
+}
 .phone_con {
-  position: relative;
-  margin: 90px auto 20px;
+  margin: 20px auto;
   background-size: 100% 100%;
   background-image: url(http://goh5.luoyefe.com/back/dist/img/phone.svg);
   background-repeat: no-repeat;
