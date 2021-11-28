@@ -1,5 +1,6 @@
 import CommonChart from './core/CommonChart';
 import { Util } from './utils/Commom';
+import IMainConfig from './typed/IMain';
 import IAxisConfig, { IAxis } from './typed/IAxis';
 import IChart from './typed/IChart';
 import IDefs from './typed/IDefs';
@@ -10,7 +11,7 @@ import ICoord, { IPolarCoord, IRectCoord } from './typed/ICoord';
 import ILegendConfig, { ILegend } from './typed/ILegend';
 import ITooltipConfig, { ITooltip } from './typed/ITooltip';
 
-const F2 = require('@antv/f2');
+// const F2 = require('@antv/f2');
 
 export {
   IAxis,
@@ -33,11 +34,12 @@ export {
   ITooltip,
   ITooltipConfig
 };
-export const Global = F2.Global;
-export const Shape = F2.Shape;
-export const Chart = F2.Chart;
+export { Global, Shape, Chart } from '@antv/f2';
+// export const Global = F2.Global;
+// export const Shape = F2.Shape;
+// export const Chart = F2.Chart;
 
-export default function (config: any) {
+export default function (config: IMainConfig) {
   if (Util.isNil(config) || Util.isEmpty(config)) {
     return;
   }

@@ -194,6 +194,13 @@ function eq(a: any, b: any, stack: any): boolean {
   return result;
 }
 
+/**
+ * 处理 百分比、rem、px单位
+ * @param value 待格式化值
+ * @param relativeValue 自适应相对值
+ * @param rootFontSize 根元素字体大小
+ * @returns 
+ */
 export const transform2px = function (
   value: any,
   relativeValue: number = 0,

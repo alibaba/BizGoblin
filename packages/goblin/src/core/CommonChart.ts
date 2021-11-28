@@ -3,8 +3,10 @@
  * @description instantiation of chart, include base function
  */
 
+import { Chart, ChartParams, DataRecord } from '@antv/f2';
 import IMainConfig from '../typed/IMain';
 import { transform2px, Util } from '../utils/Commom';
+
 import * as setSeriesConfig from '../components/setSeriesConfig';
 import * as setCoordConfig from '../components/setCoordConfig';
 import * as setAxisConfig from '../components/setAxisConfig';
@@ -14,36 +16,37 @@ import * as setAnimateConfig from '../components/setAnimateConfig';
 import * as setLegentConfig from '../components/setLegendConfig';
 import * as setTooltipConfig from '../components/setTooltipConfig';
 import * as setPieLabelConfig from '../components/setPieLabelConfig';
-
-const F2 = require('@antv/f2');
+import IChart from '../typed/IChart';
 
 class CommonChart {
-  chartInstance: any;
+  chartInstance: Chart<DataRecord>;
   viewInstance: any = {};
-  config: any;
-  oriConfig: any;
+  config: IMainConfig;
+  oriConfig: IMainConfig;
 
   constructor (config: IMainConfig) {
     this.config = Util.deepClone(config);
-    this.checkChartConfig(this.config);
-    this.chartInstance = new F2.Chart(this.config.chart);
+    this.oriConfig = this.config;
+    const chartConfig = CommonChart.getChartConfig(this.config);
+    this.chartInstance = new Chart(chartConfig);
   }
 
   public render () {
-    let config = this.config;
     const chart = this.chartInstance;
-    this.setData(chart, config);
-    this.setAxis(chart, config);
-    this.setCoord(chart, config);
-    this.setGuide(chart, config);
-    this.setSeries(chart, config);
-    this.setLegend(chart, config);
-    this.setAnimate(chart, config);
-    this.setTooltip(chart, config);
-    this.setPieLabel(chart, config);
-    this.oriConfig = config;
-    chart.render();
-    this.renderDefaultTooltip(chart, config);
+    // let config = this.config;
+    // const chart = this.chartInstance;
+    this.setData(chart, this.config);
+    // this.setAxis(chart, config);
+    // this.setCoord(chart, config);
+    // this.setGuide(chart, config);
+    // this.setSeries(chart, config);
+    // this.setLegend(chart, config);
+    // this.setAnimate(chart, config);
+    // this.setTooltip(chart, config);
+    // this.setPieLabel(chart, config);
+    // this.oriConfig = config;
+    // chart.render();
+    // this.renderDefaultTooltip(chart, config);
   }
 
   public repaint (config: IMainConfig) {
@@ -158,41 +161,75 @@ class CommonChart {
   }
 
   private checkChartConfig (config: IMainConfig) {
-    const chart: any = config.chart
-    let chartEl;
+    // const chart: IChart = config.chart;
+    // let chartEl;
 
-    if(chart.id){
-      chartEl = document.getElementById(chart.id);
-    }else if(chart.el){
-      chartEl = chart.el;
-    }else{
+    // if(chart.id){
+    //   chartEl = document.getElementById(chart.id);
+    // }else if(chart.el){
+    //   chartEl = chart.el;
+    // }else{
+    //   throw new Error('please set correct chart option');
+    // }
+
+    // const relativeWidth: number = chartEl?.parentElement?.clientWidth || 0;
+    // const relativeHeight: number = chartEl?.parentElement?.clientHeight || 0;
+    // const rootFontSize: number = Number((window.document.documentElement.style.fontSize || '').split('px')[0]);
+    // if (Util.isNil(chart.width)) {
+    //   chart.width = relativeWidth || 0;
+    // }
+    // if (Util.isNil(chart.height)) {
+    //   // Setting default height when height is null
+    //   chart.height = Math.floor( 3 / 4 * chart.height)
+    // }
+    //     let width: any = chart.width;
+//     let height: any = chart.height;
+//     let padding: any = chart.padding;
+//     if (!width) {
+//       width = relativeWidth || 0;
+//     } else {
+//       width = transform2px(width, relativeWidth, rootFontSize);
+//     }
+//     if (!height) {
+//       // Default height when height is null
+//       height =  Math.floor( 3 / 4 * width);
+//     } else {
+//       height = transform2px(height, relativeHeight, rootFontSize);
+//     }
+//     if (padding) {
+//       padding = transform2px(padding, relativeWidth, rootFontSize);
+//       chart.padding = Util.isArray(padding) ? (padding.length ? padding : 'auto') : padding;
+//     }
+//  
+//     chart.width = width || 0;
+//     chart.height = height || 0;
+    // this.handleNotPx(config, relativeWidth, rootFontSize);
+  }
+
+  private static getChartConfig(config: IMainConfig): ChartParams {
+    const chart: IChart = config.chart;
+
+    const chartEl = chart?.id ? document.getElementById(chart.id) : chart.el;
+    if (!chartEl) {
       throw new Error('please set correct chart option');
     }
 
-    const relativeWidth: number = chartEl.parentElement.clientWidth;
-    const relativeHeight: number = chartEl.parentElement.clientHeight;
+    const relativeWidth: number = chartEl.parentElement?.clientWidth || 0;
+    const relativeHeight: number = chartEl.parentElement?.clientHeight || 0;
     const rootFontSize: number = Number((window.document.documentElement.style.fontSize || '').split('px')[0]);
-    let width: any = chart.width;
-    let height: any = chart.height;
-    let padding: any = chart.padding;
-    if (!width) {
-      width = relativeWidth || 0;
-    } else {
-      width = transform2px(width, relativeWidth, rootFontSize);
+    if (Util.isNil(chart.width)) {
+      chart.width = relativeWidth || 0;
     }
-    if (!height) {
-      height =  Math.floor( 3 / 4 * width)
-    } else {
-      height = transform2px(height, relativeHeight, rootFontSize);
+    const width = transform2px(chart.width, relativeWidth, rootFontSize) as keyof ChartParams["width"];
+    if (Util.isNil(chart.height)) {
+      // Setting default height when height is null
+      chart.height = Math.floor( 3 / 4 * width);
     }
-    if (padding) {
-      padding = transform2px(padding, relativeWidth, rootFontSize);
-      chart.padding = Util.isArray(padding) ? (padding.length ? padding : 'auto') : padding;
-    }
- 
-    chart.width = width || 0;
-    chart.height = height || 0;
-    this.handleNotPx(config, relativeWidth, rootFontSize);
+    const height = transform2px(chart.height, relativeHeight, rootFontSize) as keyof ChartParams["height"];
+    const padding = transform2px(chart.padding, relativeWidth, rootFontSize) as keyof ChartParams["padding"];
+    const appendPadding = transform2px(chart.appendPadding, relativeWidth, rootFontSize) as keyof ChartParams["appendPadding"];
+
+    return { ...chart, height, width, padding, appendPadding };
   }
 
   private renderDiffConfig (config: IMainConfig) {
@@ -208,21 +245,21 @@ class CommonChart {
     }
   }
 
-  private handleNotPx (config: any, relativeValue: number, rootFontSize: number) {
-    for (const key in config) {
-      if (key !== 'el') {
-        if (typeof config[key] === 'object') {
-          if (['padding'].indexOf(key) !== -1 && Util.isArray(config[key]) && config[key].length && typeof config[key][0] === 'string') {
-            config[key] = config[key].map((value: any) => transform2px(value, relativeValue, rootFontSize));
-          } else {
-            this.handleNotPx(config[key], relativeValue, rootFontSize);
-          }
-        } else if (['fontSize', 'radius', 'padding'].indexOf(key) !== -1) {
-          config[key] = transform2px(config[key], relativeValue, rootFontSize);
-        }
-      }
-    }
-  }
+  // private handleNotPx (config: IMainConfig, relativeValue: number, rootFontSize: number) {
+  //   for (const key in config) {
+  //     if (key !== 'el') {
+  //       if (typeof config[key] === 'object') {
+  //         if (['padding'].indexOf(key) !== -1 && Util.isArray(config[key]) && config[key].length && typeof config[key][0] === 'string') {
+  //           config[key] = config[key].map((value: any) => transform2px(value, relativeValue, rootFontSize));
+  //         } else {
+  //           this.handleNotPx(config[key], relativeValue, rootFontSize);
+  //         }
+  //       } else if (['fontSize', 'radius', 'padding'].indexOf(key) !== -1) {
+  //         config[key] = transform2px(config[key], relativeValue, rootFontSize);
+  //       }
+  //     }
+  //   }
+  // }
 
   private renderDefaultTooltip(chart: any, config: any) {
     const cTooltip = Util.deepClone(config.tooltip);

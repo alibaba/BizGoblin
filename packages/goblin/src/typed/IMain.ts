@@ -12,7 +12,7 @@ import IPieLabel from './IPieLabel';
 interface ISMain {
   data?: any;
   defs?: IDefs;
-  chart?: IChart;
+  chart: IChart;
   series?: ISeries;
   coord?: ICoord;
   axis?: IAxis;

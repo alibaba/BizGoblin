@@ -1,8 +1,10 @@
 import { Util } from '../utils/Commom';
+import { Chart, DataRecord } from '@antv/f2';
+import IMainConfig from '../typed/IMain';
 
-export const process = (chart: any, config: any) => {
+export const process = (chart: Chart<DataRecord>, config: IMainConfig) => {
   const cDefs = Util.deepClone(config.defs);
-  let isArr = Util.isArray(cDefs);
+  const isArr = Util.isArray(cDefs);
 
   let options: any = {};
   if (!Util.isEmpty(cDefs)) {
